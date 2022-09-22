@@ -44,19 +44,21 @@ app.post("/login", (req, res) => {
   let { body } = req;
   let { username, pass } = body;
 
-  // look up the hashed password for that user
-  getPasswordHashForUser(username).then((hashedPass) => {
-    // check the entered pass against the hashed one using bcrypt
-    console.log(`What the user entered on login:`, pass);
-    console.log(`What the db has stored for that user:`, hashedPass);
-    compare(pass, hashedPass)
-      // return a succeed or fail message, depending on the password being right
-      .then((isMatch) => {
-        if (isMatch) res.status(202).json("PASSWORDS MATCH");
-        else res.status(401).json("NO MATCH");
-      })
-      .catch((err) => res.status(500).json(err));
-  });
+  getPasswordHashForUser(username)
+    .then((hashedPass) => {
+      // check the entered pass against the hashed one using bcrypt
+      console.log(`What the user entered on login:`, pass);
+      console.log(`What the db has stored for that user:`, hashedPass);
+      // look up the hashed password for that user
+      compare(pass, hashedPass)
+        // return a succeed or fail message, depending on the password being right
+        .then((isMatch) => {
+          if (isMatch) res.status(202).json("PASSWORDS MATCH");
+          else res.status(401).json("NO MATCH");
+        })
+        .catch((err) => res.status(500).json(err));
+    })
+    .catch((err) => res.status(500).json("Unrecognized Username"));
 });
 // EXPORT
 module.exports = app;

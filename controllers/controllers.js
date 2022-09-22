@@ -1,7 +1,9 @@
 const knex = require("./dbConnection");
 
 function createUser(username, passwordHash) {
-  return knex("users").insert({ username, passwordHash }).then(data=>data);
+  return knex("users")
+    .insert({ username, passwordHash })
+    .then((data) => data);
 }
 
 function getPasswordHashForUser(username) {
@@ -11,5 +13,4 @@ function getPasswordHashForUser(username) {
     .then((data) => data[0].passwordHash);
 }
 
-
-module.exports= {createUser, getPasswordHashForUser}
+module.exports = { createUser, getPasswordHashForUser };
