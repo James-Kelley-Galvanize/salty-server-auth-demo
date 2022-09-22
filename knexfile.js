@@ -3,7 +3,7 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: "postgres://postgres:docker@localhost/salty_server",
+    connection: "postgres://postgres:docker@localhost:5433/salty_server",
   },
 
   staging: {

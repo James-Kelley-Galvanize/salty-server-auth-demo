@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const bcrypt = require("bcrypt");
+
 const {
   createUser,
   getPasswordHashForUser,
@@ -47,7 +48,7 @@ app.post("/login", (req, res) => {
   getPasswordHashForUser(username).then((hashedPass) => {
     // check the entered pass against the hashed one using bcrypt
     console.log(`What the user entered on login:`, pass);
-    console.log(`What the db has stored for that user:`, hashedPass)
+    console.log(`What the db has stored for that user:`, hashedPass);
     compare(pass, hashedPass)
       // return a succeed or fail message, depending on the password being right
       .then((isMatch) => {
